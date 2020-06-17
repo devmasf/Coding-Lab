@@ -20,11 +20,11 @@ module.exports = {
 
   // only set cookies over https. set this to true if you are running in
   // production, false otherwise
-  SESSION_SECURE_COOKIES: false,
+  SESSION_SECURE_COOKIES: true,
 
   // destroy sessions when the browser is closed. set this if you are building a
   // website where security is paramount (aka: banking, healthcare)
-  SESSION_EPHEMERAL_COOKIES: false,
+  SESSION_EPHEMERAL_COOKIES: true,
 
   // use stronger-than-normal security for signing our JWTs
   JWT_SIGNING_ALGORITHM: "HS512",
