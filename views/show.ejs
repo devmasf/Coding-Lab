@@ -1,0 +1,31 @@
+<%- include ("partials/header") %>
+
+<div class="ui main text container segment">
+  <div class="ui huge header"><%= blog.title %></div>
+  <div class="ui top attached">
+    <div class="item">
+      <img class="ui centered rounded image" src="<%=blog.image%>" alt="" />
+      <div class="content">
+        <span><%= blog.created.toDateString() %></span>
+      </div>
+      <div class="description">
+        <p><%- blog.body %></p>
+        <!-- Here, we changed the "=" for a "-", and what it does is, it takes whatever blog.body returned and evaluate that. Rather than code, rather than displaying the string. So, if we do in the text "<strong></strong>" it bolds it  -->
+      </div>
+      <a class="ui green basic button" href="/blogs/<%= blog._id %>/edit"
+        >Edit</a
+      >
+      <form
+        id="delete"
+        action="/blogs/<%= blog._id %>?_method=DELETE"
+        method="POST"
+      >
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <!-- "blog" is what we are passing in, when we find it in the database, using "findById" -->
+        <button class="ui red basic button">Delete</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include ("partials/footer") %>
