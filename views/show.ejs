@@ -1,17 +1,25 @@
 <%- include ("partials/header") %>
 
 <div class="ui main text container segment">
-  <div class="ui huge header"><%= blog.title %></div>
   <div class="ui top attached">
     <div class="item">
-      <img class="ui centered rounded image" src="<%=blog.image%>" alt="" />
+      <div class="image">
+        <img class="ui centered rounded image" src="<%=blog.image%>" alt="" />
+      </div>
+      <div class="ui header"><%= blog.title %></div>
       <div class="content">
         <span><%= blog.created.toDateString() %></span>
       </div>
       <div class="description">
-        <p><%- blog.body %></p>
-        <!-- Here, we changed the "=" for a "-", and what it does is, it takes whatever blog.body returned and evaluate that. Rather than code, rather than displaying the string. So, if we do in the text "<strong></strong>" it bolds it  -->
+        <p><em>Submitted by <%= blog.author.username %></em></p>
       </div>
+      <div class="description">
+        <p><%- blog.body %></p>
+        <!-- The "-", is because it takes whatever "blog.body" 
+          returned and evaluates it, instead of displaying the string.
+          So, if we bold it with "<strong></strong>", it works  -->
+      </div>
+      <% if(currentUser && blog.author.id.equals(currentUser._id)) { %>
       <a class="ui green basic button" href="/blogs/<%= blog._id %>/edit"
         >Edit</a
       >
@@ -21,9 +29,10 @@
         method="POST"
       >
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-        <!-- "blog" is what we are passing in, when we find it in the database, using "findById" -->
+        <!-- "blog" we get it from the database, using "findById" -->
         <button class="ui red basic button">Delete</button>
       </form>
+      <% } %>
     </div>
   </div>
 </div>

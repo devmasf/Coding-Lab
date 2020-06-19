@@ -1,14 +1,37 @@
 <%- include ("./partials/header") %>
 
-<div class="ui container">
-  <h1>Login!</h1>
-  <form action="/login" method="POST">
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-    <input type="text" name="username" placeholder="Username" />
-    <input type="password" name="password" placeholder="Password" />
-    <input type="submit" value="Login!" />
-    <!-- This is just to demonstrate that we can use "input" and "button" -->
-  </form>
+<div class="ui one column stackable center aligned page grid">
+  <div class="column seven wide">
+    <div class="header item">
+      <h3><i class="code icon small"></i> Coding Lab</h3>
+    </div>
+    <div class="ui segment">
+      <div class="ui form">
+        <h2>Welcome Back</h2>
+        <form action="/login" method="POST">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <div class="row">
+            <div class="field">
+              <label>Username</label>
+              <div class="ui input focus">
+                <input placeholder="Username" type="text" name="username" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>Password</label>
+              <div class="ui input focus">
+                <input type="password" name="password" placeholder="Password" />
+              </div>
+            </div>
+          </div>
+          <button class="ui button">Login</button>
+        </form>
+      </div>
+    </div>
+    <p>New to Coding Lab? <a href="/register"> Join now</a></p>
+  </div>
 </div>
 
 <%- include ("./partials/footer") %>

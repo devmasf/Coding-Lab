@@ -1,5 +1,107 @@
 <%- include ("partials/header") %>
 
-<h1>Hi <%= user.username %>!</h1>
+<div class="ui container">
+  <div class="ui main container">
+    <div class="ui grid">
+      <div class="four wide column">
+        <img
+          class="ui medium circular image"
+          src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+        />
+      </div>
+      <div class="twelve wide stretched column">
+        <div class="ui two column centered grid">
+          <div class="column">
+            <h2>Welcome back, <%= user.username %>!</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui top attached">
+      <div class="ui divided items"></div>
+      <form class="ui form">
+        <h3 class="ui dividing header">Account Information</h3>
+        <div class="field">
+          <div class="two fields">
+            <div class="field">
+              <label>First Name</label>
+              <input type="text" name="first-name" placeholder="First Name" />
+            </div>
+            <div class="field">
+              <label>Last Name</label>
+              <input type="text" name="last-name" placeholder="Last Name" />
+            </div>
+          </div>
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <label>Username</label>
+            <input
+              type="text"
+              name="username"
+              value="<%-user.username %>"
+              placeholder="Username"
+            />
+          </div>
+
+          <div class="field">
+            <label>Email</label>
+            <input
+              type="text"
+              name="email"
+              value="<%-user.email %>"
+              placeholder="Email"
+            />
+          </div>
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <label>Country</label>
+            <input type="text" name="country" placeholder="Country" />
+          </div>
+
+          <div class="field">
+            <label>State</label>
+            <input type="text" name="state" placeholder="State" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="ui container">
+  <div class="ui vertical footer segment">
+    <hr />
+    <div class="ui internally grid">
+      <div class="row">
+        <div class="three wide column">
+          <h2 class="ui header">
+            <i class="settings icon"></i>
+            <div class="content">
+              Account Settings
+              <div class="sub header">Manage your preferences</div>
+            </div>
+          </h2>
+        </div>
+        <div class="ten wide column">
+          <h2 class="ui center aligned icon header">
+            <i class="circular users icon"></i>
+            Friends
+          </h2>
+        </div>
+        <div class="three wide column">
+          <h2 class="ui header">
+            <i class="file code outline icon"></i>
+            <div class="content">
+              Coding
+              <div class="sub header">Check out our Online Editor</div>
+            </div>
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <%- include ("partials/footer") %>
