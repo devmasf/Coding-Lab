@@ -6,6 +6,8 @@ const bcrypt = require("bcryptjs");
 const csurf = require("csurf");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+const morgan = require("morgan");
 const express = require("express");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -51,13 +53,18 @@ app.use(
     },
   })
 );
+
+// Using bodyParser to parse JSON bodies into JS objects
 app.use(bodyParser.urlencoded({ extended: true }));
+// Enabling CORS for all requests
+app.use(cors());
+// Adding morgan to log HTTP requests
+app.use(morgan("combined"));
 app.use(csurf());
 app.use(auth.loadUserFromSession);
 app.use(expressSanitizer());
-// Method Override: We tell the app that, whenever we get a request that
-// has "_method" as a parameter, take whatever it is equal to "PUT", etc and
-// change it to the value that we give it, "PUT", "POST", etc
+// Using methodOverride to change the request,
+// to the value given, using the "_method" parameter
 app.use(methodOverride("_method"));
 app.use(flash());
 
