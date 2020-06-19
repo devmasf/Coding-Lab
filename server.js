@@ -11,13 +11,14 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const expressSanitizer = require("express-sanitizer");
 const sessions = require("client-sessions");
+const flash = require("connect-flash");
 
 const auth = require("./auth");
 const authRoutes = require("./routes/auth");
 const blogRoutes = require("./routes/blogs");
 const settings = require("./settings");
 
-let app = express();
+const app = express();
 
 // Init
 mongoose.connect(
@@ -54,7 +55,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(csurf());
 app.use(auth.loadUserFromSession);
 app.use(expressSanitizer());
-app.use(methodOverride("_method")); // Here, we are telling the app that, whenever we get a request that has "_method" as a parameter, take whatever it is equal to "PUT", "DELETE", or whatever it is, as what "PUT", "POST" or whatever
+// Method Override: We tell the app that, whenever we get a request that
+// has "_method" as a parameter, take whatever it is equal to "PUT", etc and
+// change it to the value that we give it, "PUT", "POST", etc
+app.use(methodOverride("_method"));
+app.use(flash());
+
+// User in session
+app.use(function currentUserDisplay(req, res, next) {
+  res.locals.currentUser = req.user;
+  res.locals.warning = req.flash("warning");
+  res.locals.success = req.flash("success");
+  next();
+});
 
 // Routes
 app.use(authRoutes);
@@ -63,7 +76,7 @@ app.use(blogRoutes);
 // Error Handling
 app.use((err, req, res, next) => {
   res.status(500).send("Something broke :( Please try again.");
-  console.log("ERROR: " + err.message + err.csurf);
+  console.log("ERROR: " + err.message + " - Csurf: " + err.csurf);
 });
 
 app.listen(3000, () => {

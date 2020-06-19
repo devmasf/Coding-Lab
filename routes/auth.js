@@ -9,14 +9,13 @@ const router = express.Router();
 
 // AUTH ROUTES
 
-// Render the registration page.
-
+// Render the registration page
 router.get("/register", (req, res) => {
   res.render("register", { csrfToken: req.csrfToken() });
 });
 
-//  Create a new user account.
-//  Once a user is logged in, they will be sent to the dashboard page.
+//  CREATE a new user account
+//  Once a user is logged in, they will be sent to the dashboard page
 router.post("/register", (req, res) => {
   let hash = bcrypt.hashSync(req.body.password, settings.BCRYPT_WORK_FACTOR);
   req.body.password = hash;
@@ -27,7 +26,7 @@ router.post("/register", (req, res) => {
       let error = "Something bad happened! Please try agian.";
 
       if (err.code === 11000) {
-        error = "That email is already taken. Please try another.";
+        error = "That username is already taken. Please try another.";
       }
 
       return res.render("register", {
@@ -42,19 +41,16 @@ router.post("/register", (req, res) => {
 });
 
 // Render the login page
-
 router.get("/login", (req, res) => {
   res.render("login", { csrfToken: req.csrfToken() });
 });
 
-// Log a user into their account.
-
-// Once a user is logged in, they will be sent to the dashboard page.
-
+// LOG a user into their account. Once a user is logged in,
+// they will be sent to the dashboard page
 router.post("/login", (req, res) => {
   User.findOne(
     { username: req.body.username },
-    "username password",
+    "username email password",
     (err, user) => {
       if (!user || !bcrypt.compareSync(req.body.password, user.password)) {
         return res.render("login", {
@@ -69,14 +65,13 @@ router.post("/login", (req, res) => {
   );
 });
 
-// Log a user out of their account, then redirect them to the home page.
-
+// LOG a user OUT of their account, then redirect them to the home page
 router.get("/logout", (req, res) => {
   if (req.session) {
     req.session.reset();
   }
-
-  res.redirect("/");
+  req.flash("success", "See you later " + req.user.username + "!");
+  res.redirect("/blogs");
 });
 
 module.exports = router;

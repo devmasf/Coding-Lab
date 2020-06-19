@@ -2,17 +2,39 @@ const nJwt = require("njwt");
 
 const User = require("./models/user");
 const settings = require("./settings");
+const Blog = require("./models/blog");
 
-// Authentication middleware for Express.
+// Authentication middleware for Express
 
-// This middleware checks to see if a user is available in the request. If not, it will redirect the visitor to the login page.
-
+// This middleware checks if a user is available in the request.
+// If not, it will redirect the visitor to the login page
 module.exports.loginRequired = (req, res, next) => {
   if (req.user) {
     return next();
   }
-
+  req.flash("warning", "You must log in before you can do that!");
   res.redirect("/login");
+};
+
+module.exports.checkBlogOwnership = (req, res, next) => {
+  if (req.user) {
+    Blog.findById(req.params.id, (err, foundBlog) => {
+      if (err) {
+        req.flash("warning", "Blog not found!");
+        res.redirect("/blogs");
+      } else {
+        if (foundBlog.author.id.equals(req.user._id)) {
+          next();
+        } else {
+          req.flash("warning", "Permission denied");
+          res.redirect("back");
+        }
+      }
+    });
+  } else {
+    req.flash("warning", "You must log in before you can do that!");
+    res.redirect("back");
+  }
 };
 
 module.exports.createUserSession = (req, res, user) => {
@@ -53,10 +75,14 @@ module.exports.loadUserFromSession = (req, res, next) => {
           return next();
         }
 
-        // Remove the password hash from the User object, so we don't accidentally leak it
+        // Remove the password hash from the User object,
+        // so we don't accidentally leak it
         user.password = undefined;
 
-        // Here, we store the "user object" in the current request for developer usage. If the user wasn't found, these values will be set to a "non-truthy" value, so it won't affect anything.
+        // Here, we store the "user object" in the current request
+        //  for developer usage. If the user wasn't found, these
+        // values will be set to a "non-truthy" value, so it won't
+        // affect anything.
         req.user = user;
         res.locals.user = user;
 
