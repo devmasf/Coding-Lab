@@ -2,7 +2,6 @@ require("dotenv").config();
 
 const path = require("path");
 
-const bcrypt = require("bcryptjs");
 const csurf = require("csurf");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
@@ -39,7 +38,6 @@ mongoose.connect(
 app.set("view engine", "ejs");
 app.use("/static", express.static(path.join(__dirname, "public")));
 
-app.use(helmet());
 app.use(
   sessions({
     cookieName: "session",
@@ -53,7 +51,7 @@ app.use(
     },
   })
 );
-
+app.use(helmet());
 // Using bodyParser to parse JSON bodies into JS objects
 app.use(bodyParser.urlencoded({ extended: true }));
 // Enabling CORS for all requests
@@ -61,12 +59,12 @@ app.use(cors());
 // Adding morgan to log HTTP requests
 app.use(morgan("combined"));
 app.use(csurf());
-app.use(auth.loadUserFromSession);
 app.use(expressSanitizer());
 // Using methodOverride to change the request,
 // to the value given, using the "_method" parameter
 app.use(methodOverride("_method"));
 app.use(flash());
+app.use(auth.loadUserFromSession);
 
 // User in session
 app.use(function currentUserDisplay(req, res, next) {

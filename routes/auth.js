@@ -26,7 +26,12 @@ router.post("/register", (req, res) => {
       let error = "Something bad happened! Please try agian.";
 
       if (err.code === 11000) {
-        error = "That username is already taken. Please try another.";
+        req.flash(
+          "warning",
+          "That username / password is already taken. Please try another."
+        );
+        error =
+          "That username / password is already taken. Please try another.";
       }
 
       return res.render("register", {
@@ -53,6 +58,7 @@ router.post("/login", (req, res) => {
     "username email password",
     (err, user) => {
       if (!user || !bcrypt.compareSync(req.body.password, user.password)) {
+        req.flash("warning", "Incorrect username / password.");
         return res.render("login", {
           error: "Incorrect username / password.",
           csrfToken: req.csrfToken(),

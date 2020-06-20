@@ -19,7 +19,7 @@ module.exports.loginRequired = (req, res, next) => {
 module.exports.checkBlogOwnership = (req, res, next) => {
   if (req.user) {
     Blog.findById(req.params.id, (err, foundBlog) => {
-      if (err) {
+      if (err || !foundBlog) {
         req.flash("warning", "Blog not found!");
         res.redirect("/blogs");
       } else {

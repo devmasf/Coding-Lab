@@ -33,6 +33,7 @@ router.get("/blogs", async (req, res) => {
       csrfToken: req.csrfToken(),
     });
   } catch (error) {
+    req.flash("warning", "Something went wrong!");
     console.log("We got an error: " + error.message);
   }
 });
@@ -64,7 +65,7 @@ router.post("/blogs", auth.loginRequired, async (req, res) => {
   try {
     // Create a new campground and save to DB
     await Blog.create(newBlog);
-    //redirect back to campgrounds page
+    // Redirect back to campgrounds page
     req.flash("success", "Blog " + newBlog.title + " succesfully created!");
     res.redirect("/blogs/");
   } catch (error) {
@@ -75,37 +76,37 @@ router.post("/blogs", auth.loginRequired, async (req, res) => {
 });
 
 // SHOW ROUTE
-router.get("/blogs/:id", async (req, res) => {
-  try {
-    const foundBlog = await Blog.findById(req.params.id);
-    res.render("show", { blog: foundBlog, csrfToken: req.csrfToken() });
-  } catch (error) {
-    console.log(error.message);
-    req.flash("warning", "Blog not found!");
-    res.redirect("/blogs");
-  }
+router.get("/blogs/:id", function (req, res) {
+  Blog.findById(req.params.id, function (err, foundBlog) {
+    if (err || !foundBlog) {
+      req.flash("warning", "Blog not found!");
+      res.redirect("/blogs");
+    } else {
+      res.render("show", { blog: foundBlog, csrfToken: req.csrfToken() });
+    }
+  });
 });
 
 // EDIT ROUTE
 router.get("/blogs/:id/edit", auth.checkBlogOwnership, async (req, res) => {
-  const foundBlog = await Blog.findById(req.params.id);
   try {
+    const foundBlog = await Blog.findById(req.params.id);
     res.render("edit", { blog: foundBlog, csrfToken: req.csrfToken() });
   } catch (error) {
-    req.flash("warning", "Blog not found!");
-    res.redirect("/blogs");
+    if (err || !foundBlog) {
+      req.flash("warning", "Blog not found!");
+      res.redirect("/blogs");
+    }
   }
 });
 
 // UPDATE ROUTE - Here, we can also do a "post" request, but the point of the
-// HTTP Requests, is to make things "meaningful", this is why we use "PUT" istead of "POST"
+// HTTP Requests, is to make things "meaningful", this is why we use "PUT"
+// instead of "POST"
 router.put("/blogs/:id", auth.checkBlogOwnership, async (req, res) => {
-  req.body.blog.body = req.sanitize(req.body.blog.body);
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(
-      req.params.id,
-      req.body.blog
-    );
+    req.body.blog.body = req.sanitize(req.body.blog.body);
+    await Blog.findByIdAndUpdate(req.params.id, req.body.blog);
     req.flash("success", "Blog sucessfully edited");
     res.redirect("/blogs/" + req.params.id);
   } catch (error) {
@@ -117,9 +118,8 @@ router.put("/blogs/:id", auth.checkBlogOwnership, async (req, res) => {
 // DESTROY ROUTE
 router.delete("/blogs/:id", auth.checkBlogOwnership, async (req, res) => {
   try {
-    const removedBlog = await Blog.findByIdAndRemove(req.params.id);
+    await Blog.findByIdAndRemove(req.params.id);
     req.flash("warning", "Blog deleted");
-    // console.log(removedBlog);
     res.redirect("/blogs");
   } catch (error) {
     console.log("ERROR: " + error.message);

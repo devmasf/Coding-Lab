@@ -74,4 +74,8 @@ Use [npm-ci](https://docs.npmjs.com/cli/ci)
 
 - [Semantic UI](https://semantic-ui.com/) or [Fomantic UI](https://semantic-ui.com/) (new version)
 
-**Learn more about authentication:** [Randall Degges - Everything you ever wanted to know about Web Authentication in Node](https://www.youtube.com/watch?v=i7of02icPyQ&feature=youtu.be&t=35)
+##### Learn more:
+
+**Error Handling:** [Express Documentation Guide](https://expressjs.com/en/guide/error-handling.html)
+
+**Authentication:** [Randall Degges - Everything you ever wanted to know about Web Authentication in Node](https://www.youtube.com/watch?v=i7of02icPyQ&feature=youtu.be&t=35)
