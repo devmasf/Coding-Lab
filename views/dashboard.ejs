@@ -12,7 +12,7 @@
       <div class="twelve wide stretched column">
         <div class="ui two column centered grid">
           <div class="column">
-            <h2>Welcome back, <%= user.username %>!</h2>
+            <h2>Welcome, <%= user.username %>!</h2>
           </div>
         </div>
       </div>
@@ -41,6 +41,7 @@
               name="username"
               value="<%-user.username %>"
               placeholder="Username"
+              required
             />
           </div>
 
@@ -51,6 +52,7 @@
               name="email"
               value="<%-user.email %>"
               placeholder="Email"
+              required
             />
           </div>
         </div>
@@ -65,6 +67,9 @@
             <input type="text" name="state" placeholder="State" />
           </div>
         </div>
+        <button class="ui secondary right floated button" type="submit">
+          Update
+        </button>
       </form>
     </div>
   </div>
