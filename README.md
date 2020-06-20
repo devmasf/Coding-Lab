@@ -2,17 +2,21 @@
 
 ## Purpose
 
-This is a RESTful API designed with Node.js, Express.js and MongoDB. The purpose of the app is to test other ways to set a secure authentication without using [express-sessions](https://github.com/expressjs/session) or [PassportJS](http://www.passportjs.org/). The UI can improve but is not the main objective that led me to build this application.
+This is a RESTful API designed with Node.js, Express.js and MongoDB. The purpose 
+of the app is to test other ways to set a secure authentication without using 
+[express-sessions](https://github.com/expressjs/session) or 
+[PassportJS](http://www.passportjs.org/). The UI can improve but is not the 
+main objective that led me to build this application.
 
 ## Getting Started
 
 ### Installation
 
-In order to run the app you need to have [Node.js](https://nodejs.org/en/) and [MongoDB](https://docs.mongodb.com/manual/administration/install-community/) installed and working locally.
+In order to run the app you need to have [Node.js](https://nodejs.org/en/) and
+[MongoDB](https://docs.mongodb.com/manual/administration/install-community/) 
+installed and working locally.
 
-[Documentation for Linux users](https://docs.mongodb.com/manual/administration/install-on-linux/)
-
-In order to install this project, you can run the following commands:
+To start, let's install the project running the following commands:
 
 ```console
 # Clone the project via HTTPS
@@ -72,10 +76,13 @@ Use [npm-ci](https://docs.npmjs.com/cli/ci)
 
 ### UI
 
-- [Semantic UI](https://semantic-ui.com/) or [Fomantic UI](https://semantic-ui.com/) (new version)
+- [Semantic UI](https://semantic-ui.com/) or 
+[Fomantic UI](https://semantic-ui.com/) (new version)
 
-##### Learn more:
+## Learn more
 
-**Error Handling:** [Express Documentation Guide](https://expressjs.com/en/guide/error-handling.html)
+**Error Handling:** 
+[Express Documentation Guide](https://expressjs.com/en/guide/error-handling.html)
 
-**Authentication:** [Randall Degges - Everything you ever wanted to know about Web Authentication in Node](https://www.youtube.com/watch?v=i7of02icPyQ&feature=youtu.be&t=35)
+**Authentication:** 
+[Randall Degges - Everything you ever wanted to know about Web Authentication in Node](https://www.youtube.com/watch?v=i7of02icPyQ&feature=youtu.be&t=35)
