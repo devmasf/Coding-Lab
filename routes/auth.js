@@ -23,19 +23,9 @@ router.post("/register", (req, res) => {
 
   user.save((err) => {
     if (err) {
-      let error = "Something bad happened! Please try agian.";
-
-      if (err.code === 11000) {
-        req.flash(
-          "warning",
-          "That username / password is already taken. Please try another."
-        );
-        error =
-          "That username / password is already taken. Please try another.";
-      }
+      req.flash("warning", err.message);
 
       return res.render("register", {
-        error: error,
         csrfToken: req.csrfToken(),
       });
     }
