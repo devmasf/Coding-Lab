@@ -82,8 +82,8 @@ app.use(blogRoutes);
 
 // Error Handling
 app.use((err, req, res, next) => {
-  res.status(500).send("Something broke :( Please try again.");
-  console.log("ERROR: " + err.message + " - Csurf: " + err.csurf);
+  res.status(500).send("Something broke. Please try again.");
+  console.log("ERROR: " + err.message);
 });
 
 app.listen(3000, () => {
