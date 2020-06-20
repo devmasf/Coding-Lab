@@ -15,10 +15,10 @@ In order to run the app you need to have [Node.js](https://nodejs.org/en/) and [
 In order to install this project, you can run the following commands:
 
 ```console
-# Clone the project
-# HTTPS
+# Clone the project via HTTPS
 $ git clone https://github.com/devmasf/Coding-Lab.git
-# SSH
+
+# Clone the project via SSH
 $ git@github.com:devmasf/Coding-Lab.git
 
 # Navigate to the directory
@@ -55,7 +55,7 @@ several options you will want to enable when running a production website.
 
 Use [npm-ci](https://docs.npmjs.com/cli/ci)
 
-## Tools used
+## Tools
 
 ### Security
 
@@ -74,6 +74,4 @@ Use [npm-ci](https://docs.npmjs.com/cli/ci)
 
 - [Semantic UI](https://semantic-ui.com/) or [Fomantic UI](https://semantic-ui.com/) (new version)
 
-#### Learn more about authentication:
-
-- [Randall Degges - Everything you ever wanted to know about Web Authentication in Node](https://www.youtube.com/watch?v=i7of02icPyQ&feature=youtu.be&t=35)
+**Learn more about authentication:** [Randall Degges - Everything you ever wanted to know about Web Authentication in Node](https://www.youtube.com/watch?v=i7of02icPyQ&feature=youtu.be&t=35)
