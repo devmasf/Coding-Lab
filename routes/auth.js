@@ -24,14 +24,14 @@ router.post("/register", (req, res) => {
   user.save((err) => {
     if (err) {
       req.flash("warning", err.message);
-
-      return res.render("register", {
+      res.locals.warning = req.flash("warning");
+      res.render("register", {
         csrfToken: req.csrfToken(),
       });
+    } else {
+      auth.createUserSession(req, res, user);
+      res.redirect("/dashboard");
     }
-
-    auth.createUserSession(req, res, user);
-    res.redirect("/dashboard");
   });
 });
 
@@ -49,14 +49,15 @@ router.post("/login", (req, res) => {
     (err, user) => {
       if (!user || !bcrypt.compareSync(req.body.password, user.password)) {
         req.flash("warning", "Incorrect username / password.");
-        return res.render("login", {
+        res.locals.warning = req.flash("warning");
+        res.render("login", {
           error: "Incorrect username / password.",
           csrfToken: req.csrfToken(),
         });
+      } else {
+        auth.createUserSession(req, res, user);
+        res.redirect("/dashboard");
       }
-
-      auth.createUserSession(req, res, user);
-      res.redirect("/dashboard");
     }
   );
 });

@@ -15,6 +15,6 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.plugin(uniqueValidator, {
-  message: "The {PATH} is already taken. Please try another.",
+  message: "'{VALUE}' is already taken. Please try with a different {PATH}. ",
 });
 module.exports = mongoose.model("User", UserSchema);

@@ -2,11 +2,10 @@
 
 ## Purpose
 
-Coding Lab is a RESTful API designed with Node.js, Express.js and MongoDB. The purpose
-of the app is to test other ways to set a secure authentication without using
-[express-sessions](https://github.com/expressjs/session) or
-[PassportJS](http://www.passportjs.org/). The UI can improve but is not the
-main objective that led me to build this application.
+Coding Lab is a RESTful API designed with Node.js, Express.js and MongoDB.
+The purpose of the app is to test different ways of setting a secure web
+application, using bcrypt for hashing, JWT for authentication and authorization,
+helmet for HTTP headers and other security packages.
 
 ## Getting Started
 
@@ -20,13 +19,13 @@ To start, let's install the project running the following commands:
 
 ```console
 # Clone the project via HTTPS
-$ git clone https://github.com/devmasf/Coding-Lab.git
+$ git clone https://github.com/devmasf/coding-lab.git
 
 # Clone the project via SSH
-$ git@github.com:devmasf/Coding-Lab.git
+$ git@github.com:devmasf/coding-lab.git
 
 # Navigate to the directory
-$ cd Coding-Lab
+$ cd coding-lab
 
 # Install npm
 $ npm install
@@ -61,7 +60,7 @@ Use [npm-ci](https://docs.npmjs.com/cli/ci)
 
 ## Tools
 
-### Security
+### Security & Authentication
 
 - [JWT (JSON Web Tokens)](https://jwt.io/)
 - [bcrypt](https://github.com/dcodeIO/bcrypt.js/)
