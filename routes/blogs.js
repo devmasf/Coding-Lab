@@ -66,7 +66,7 @@ router.post("/blogs", auth.loginRequired, async (req, res) => {
     // Create a new campground and save to DB
     await Blog.create(newBlog);
     // Redirect back to campgrounds page
-    req.flash("success", "Blog " + newBlog.title + " succesfully created!");
+    req.flash("success", `Blog '${newBlog.title}' succesfully created!`);
     res.redirect("/blogs/");
   } catch (error) {
     req.flash("warning", "Something went wrong!");
@@ -119,7 +119,7 @@ router.put("/blogs/:id", auth.checkBlogOwnership, async (req, res) => {
 router.delete("/blogs/:id", auth.checkBlogOwnership, async (req, res) => {
   try {
     await Blog.findByIdAndRemove(req.params.id);
-    req.flash("warning", "Blog deleted");
+    req.flash("warning", "Blog has been deleted!");
     res.redirect("/blogs");
   } catch (error) {
     console.log("ERROR: " + error.message);
