@@ -29,6 +29,9 @@ $ cd coding-lab
 
 # Install npm
 $ npm install
+
+# Run the app in PORT 3000
+$ npm run dev
 ```
 
 Next, you need to set two environment variables:

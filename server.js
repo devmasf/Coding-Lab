@@ -23,7 +23,7 @@ const app = express();
 
 // Init
 mongoose.connect(
-  "mongodb://localhost:27017/restful_blogApp",
+  process.env.DATABASE_URL,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -85,6 +85,6 @@ app.use((err, req, res, next) => {
   console.log("ERROR: " + err.message);
 });
 
-app.listen(3000, () => {
-  console.log("The RESTful Blog App is listening on port 3000");
+app.listen(process.env.PORT, process.env.IP, () => {
+  console.log("The RESTful Blog App Has Started!");
 });
