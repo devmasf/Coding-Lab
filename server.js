@@ -22,6 +22,19 @@ const settings = require("./settings");
 const app = express();
 
 // Init
+// mongoose.connect(
+//   process.env.MONGODB_URL,
+//   {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useFindAndModify: false,
+//     useCreateIndex: true,
+//   },
+//   () => {
+//     console.log("MongoDB is running!");
+//   }
+// );
+
 mongoose.connect(
   process.env.DATABASE_URL,
   {
@@ -31,7 +44,7 @@ mongoose.connect(
     useCreateIndex: true,
   },
   () => {
-    console.log("MongoDB is running!");
+    console.log("Database connected!");
   }
 );
 
@@ -48,7 +61,7 @@ app.use(
     cookie: {
       httpOnly: true,
       ephemeral: settings.SESSION_EPHEMERAL_COOKIES,
-      secure: settings.SESSION_SECURE_COOKIES,
+      secureProxy: settings.SESSION_SECURE_COOKIES,
     },
   })
 );
